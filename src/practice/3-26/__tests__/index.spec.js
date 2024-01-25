@@ -57,3 +57,52 @@ describe('Matcher - 非純值型別比對', () => {
   test('use toStrictEqual match object (has null property)', () =>
     expect({ cat: '肥貓', dog: undefined }).toStrictEqual({ cat: '肥貓' }))
 })
+
+describe('Matcher - 非純值型別比對 - Object', () => {
+  test('use toEqual match object', () => expect({ cat: '肥貓' }).toEqual({ cat: '肥貓' }))
+
+  test('use toEqual match object (has undefined property)', () =>
+    expect({ cat: '肥貓', dog: undefined }).toEqual({ cat: '肥貓' }))
+  test('use toEqual match object (has null property)', () =>
+    expect({ cat: '肥貓', dog: null }).toEqual({ cat: '肥貓' }))
+
+  test('use toStrictEqual match object (has null property)', () =>
+    expect({ cat: '肥貓' }).toStrictEqual({ cat: '肥貓' }))
+  test('use toStrictEqual match object (has null property)', () =>
+    expect({ cat: '肥貓', dog: undefined }).toStrictEqual({ cat: '肥貓' }))
+})
+
+describe('Matcher - 檢查陣列中是否含有某個值', () => {
+  test('use toEqual match array', () => expect(['橘貓', '白貓']).toEqual(['橘貓', '白貓']))
+
+  test('use toContain match array', () => expect(['橘貓', '黑貓']).toContain('橘貓'))
+
+  test('use toContainEqual match array 1', () =>
+    expect(['橘貓', '黑貓']).toContainEqual(['橘貓', '黑貓']))
+  test('use toContainEqual match array 2', () => expect(['橘貓', '黑貓']).toContainEqual(['橘貓']))
+})
+
+describe('Matcher - 檢查資料長度', () => {
+  test('match string length', () => expect('有隻大狗叫做二哈').toHaveLength(8))
+
+  test('match array length', () => expect(['哈士奇', '柴犬']).toHaveLength(2))
+
+  test('match object length', () => expect({ length: 6 }).toHaveLength(6))
+})
+
+describe('Matcher - 檢驗物件是否含有特定屬性', () => {
+  const dog = { name: '哈士奇' }
+
+  test('match object has name property', () => expect(dog).toHaveProperty('name'))
+  test('match object has name property', () => expect(dog).toHaveProperty('name', '哈士奇'))
+  test('match object has name property', () => expect(dog).toHaveProperty('name', '二哈'))
+})
+
+describe('Matcher - 比對部份物件內容', () => {
+  const dog = { lover: { name: '柴犬' }, name: '哈士奇' }
+
+  test('match object has name property and value is 哈士奇', () =>
+    expect(dog).toMatchObject({ name: '哈士奇' }))
+  test('match object has lover property and value is { name: "柴犬" }', () =>
+    expect(dog).toMatchObject({ lover: { name: '柴犬' } }))
+})
